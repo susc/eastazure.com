@@ -2,7 +2,7 @@ import { defineAstroPaperConfig } from "./src/types/config";
 
 export default defineAstroPaperConfig({
   site: {
-    url: "https://susc.github.io/",
+    url: "https://eastazure.com/",
     title: "EastAzure",
     description: "专注于 C++、系统工程、Linux 与 AI 基础设施。",
     author: "susc",
