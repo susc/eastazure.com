@@ -56,10 +56,20 @@ export interface UIStrings {
     openMenu: string;
     closeMenu: string;
     toggleTheme: string;
+    lightTheme: string;
+    darkTheme: string;
     searchPlaceholder: string;
     noResults: string;
     goToPreviousPage: string;
     goToNextPage: string;
+    paginationNavigation: string;
+    breadcrumb: string;
+    rssFeed: string;
+    copyCode: string;
+    copied: string;
+    zoomImage: string;
+    imagePreview: string;
+    closeImagePreview: string;
   };
   notFound: {
     title: string;

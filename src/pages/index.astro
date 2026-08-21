@@ -35,39 +35,28 @@ const homePath = getRelativeLocaleUrl(locale, "");
   >
     <section id="hero" class="border-border border-b pt-8 pb-6">
       <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
-        Mingalaba
+        你好
       </h1>
       <a
         target="_blank"
         href={`${import.meta.env.BASE_URL.replace(/\/?$/, "/")}rss.xml`}
         class="inline-block"
-        aria-label="RSS Feed"
-        title="RSS Feed"
+        aria-label={t.a11y.rssFeed}
+        title={t.a11y.rssFeed}
       >
         <IconRss
           width={20}
           height={20}
           class="stroke-accent scale-125 stroke-3 rtl:-rotate-90"
         />
-        <span class="sr-only">RSS Feed</span>
+        <span class="sr-only">{t.a11y.rssFeed}</span>
       </a>
 
       <p>
-        AstroPaper is a minimal, responsive, accessible and SEO-friendly Astro
-        blog theme. This theme follows best practices and provides accessibility
-        out of the box. Light and dark mode are supported by default. Moreover,
-        additional color schemes can also be configured.
+        欢迎来到 EastAzure。这里记录 C++、系统工程、Linux 与 AI
+        基础设施相关的技术实践与思考。
       </p>
-      <p class="mt-2">
-        Read the blog posts or check{" "}
-        <LinkButton
-          class="hover:text-accent underline decoration-dashed underline-offset-4"
-          href="https://github.com/satnaing/astro-paper#readme"
-        >
-          README
-        </LinkButton>{" "}
-        for more info.
-      </p>
+      <p class="mt-2">你可以浏览最新文章，也可以通过下方的社交链接与我联系。</p>
       {
         socials.length > 0 && (
           <div class="mt-4 flex max-sm:flex-col sm:items-center">
