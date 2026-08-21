@@ -2,7 +2,7 @@
 author: FjellOverflow
 pubDatetime: 2024-07-25T11:11:53Z
 modDatetime: 2025-03-12T12:28:53Z
-title: How to integrate Giscus comments into AstroPaper
+title: 如何为 AstroPaper 集成 Giscus 评论
 slug: how-to-integrate-giscus-comments
 featured: false
 draft: false
@@ -10,72 +10,72 @@ tags:
   - astro
   - blog
   - docs
-description: Comment function on a static blog hosted on GitHub Pages with Giscus.
+description: 使用 Giscus 为托管在 GitHub Pages 上的静态博客添加评论功能。
 ---
 
-Hosting a thin static blog on a platform like [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) has numerous advantages, but also takes away some interactivity. Fortunately, [Giscus](https://giscus.app/) exists and offers a way to embed user comments on static sites.
+将轻量静态博客托管在 [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) 等平台上有很多优势，但也会失去一些交互能力。幸运的是，[Giscus](https://giscus.app/) 可以让我们在静态网站中嵌入用户评论。
 
-## Table of contents
+## 目录
 
-## How _Giscus_ works
+## Giscus 的工作原理
 
-[Giscus uses the GitHub API](https://github.com/giscus/giscus?tab=readme-ov-file#how-it-works) to read and store comments made by _GitHub_ users in the `Discussions` associated with a repository.
+[Giscus 使用 GitHub API](https://github.com/giscus/giscus?tab=readme-ov-file#how-it-works)，在仓库关联的 `Discussions` 中读取和存储 GitHub 用户发表的评论。
 
-Embed the _Giscus_ client-side script bundle on your site, configure it with the correct repository URL, and users can view and write comments (when logged into _GitHub_).
+只需在网站中嵌入 Giscus 客户端脚本，并配置正确的仓库 URL，已登录 GitHub 的用户就可以查看和发表评论。
 
-The approach is serverless, as the comments are stored on _GitHub_ and dynamically loaded from there on client side, hence perfect for a static blog, like _AstroPaper_.
+这种方式不需要服务器：评论存储在 GitHub 上，并由客户端动态加载，因此非常适合 AstroPaper 这样的静态博客。
 
-## Setting up _Giscus_
+## 设置 Giscus
 
-_Giscus_ can be set up easily on [giscus.app](https://giscus.app/), but I will outline the process shortly still.
+你可以在 [giscus.app](https://giscus.app/) 上轻松完成设置，下面简要介绍整个流程。
 
-### Prerequisites
+### 前提条件
 
-Prerequisites to get _Giscus_ working are
+使用 Giscus 需要满足以下条件：
 
-- the repository is [public](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility#making-a-repository-public)
-- the [Giscus app](https://github.com/apps/giscus) is installed
-- the [Discussions](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/enabling-or-disabling-github-discussions-for-a-repository) feature is turned on for your repository
+- 仓库必须是[公开仓库](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility#making-a-repository-public)；
+- 已安装 [Giscus 应用](https://github.com/apps/giscus)；
+- 仓库已启用 [Discussions](https://docs.github.com/en/github/administering-a-repository/managing-repository-settings/enabling-or-disabling-github-discussions-for-a-repository) 功能。
 
-If any of these conditions cannot be fulfilled for any reason, unfortunately, _Giscus_ cannot be integrated.
+如果由于某种原因无法满足任意一项条件，就无法集成 Giscus。
 
-### Configuring _Giscus_
+### 配置 Giscus
 
-Next, configuring _Giscus_ is necessary. In most cases, the preselected defaults are suitable, and you should only modify them if you have a specific reason and know what you are doing. Don't worry too much about making the wrong choices; you can always adjust the configuration later on.
+接下来需要配置 Giscus。大多数情况下，默认选项已经足够，只有在有明确需求并了解其作用时才需要修改。即使选错也不必担心，之后随时可以调整。
 
-However you need to
+不过，你必须：
 
-- select the right language for the UI
-- specify the _GitHub_ repository you want to connect, typically the repository containing your statically hosted _AstroPaper_ blog on _GitHub Pages_
-- create and set an `Announcement` type discussion on _GitHub_ if you want to ensure nobody can create random comments directly on _GitHub_
-- define the color scheme
+- 为界面选择正确的语言；
+- 指定要连接的 GitHub 仓库，通常就是在 GitHub Pages 上托管 AstroPaper 博客的仓库；
+- 如果不希望他人直接在 GitHub 上随意创建评论，可以创建并选择一个 `Announcement` 类型的 Discussion；
+- 定义配色方案。
 
-After configuring the settings, _Giscus_ provides you with a generated `<script>` tag, which you will need in the next steps.
+完成配置后，Giscus 会生成一个 `<script>` 标签，后续步骤将使用它。
 
-## Simple script tag
+## 使用简单的 Script 标签
 
-You should now have a script tag that looks like this:
+现在你应该已经获得类似下面的 Script 标签：
 
 ```html
 <script
   src="https://giscus.app/client.js"
-  data-repo="[ENTER REPO HERE]"
-  data-repo-id="[ENTER REPO ID HERE]"
-  data-category="[ENTER CATEGORY NAME HERE]"
-  data-category-id="[ENTER CATEGORY ID HERE]"
+  data-repo="[在此填写仓库]"
+  data-repo-id="[在此填写仓库 ID]"
+  data-category="[在此填写分类名称]"
+  data-category-id="[在此填写分类 ID]"
   data-mapping="pathname"
   data-strict="0"
   data-reactions-enabled="1"
   data-emit-metadata="0"
   data-input-position="bottom"
   data-theme="preferred_color_scheme"
-  data-lang="en"
+  data-lang="zh-CN"
   crossorigin="anonymous"
   async
 ></script>
 ```
 
-Simply add that to the source code of the site. Most likely, if you're using _AstroPaper_ and want to enable comments on posts, navigate to `PostDetails.astro` and paste it into the desired location where you want the comments to appear, perhaps underneath the `Share this post on:` buttons.
+将它加入网站源码即可。如果你使用 AstroPaper，并希望在文章中启用评论，请打开 `PostDetails.astro`，将脚本粘贴到希望显示评论的位置，例如“分享本文”按钮下方。
 
 ```astro file=src/layouts/PostDetails.astro
 <Layout {...layoutProps}>
@@ -85,28 +85,28 @@ Simply add that to the source code of the site. Most likely, if you're using _As
     <!-- [!code ++:6] -->
     <script
       src="https://giscus.app/client.js"
-      data-repo="[ENTER REPO HERE]"
-      data-repo-id="[ENTER REPO ID HERE]"
-      data-category="[ENTER CATEGORY NAME HERE]"
-      data-category-id="[ENTER CATEGORY ID HERE]"></script>
+      data-repo="[在此填写仓库]"
+      data-repo-id="[在此填写仓库 ID]"
+      data-category="[在此填写分类名称]"
+      data-category-id="[在此填写分类 ID]"></script>
   </main>
   <Footer />
 </Layout>
 ```
 
-And it's done! You have successfully integrated comments in _AstroPaper_!
+完成！你已经成功为 AstroPaper 集成评论功能。
 
-## React component with light/dark theme
+## 支持深浅色主题的 React 组件
 
-The embedded script tag in the layout is quite static, with the _Giscus_ configuration, including `theme`, hardcoded into the layout. Given that _AstroPaper_ features a light/dark theme toggle, it would be nice for the comments to seamlessly transition between light and dark themes along with the rest of the site. To achieve this, a more sophisticated approach to embedding _Giscus_ is required.
+直接嵌入布局的 Script 标签比较静态，包括 `theme` 在内的 Giscus 配置都被硬编码在布局中。AstroPaper 支持深浅色主题切换，如果评论区也能跟随网站无缝切换主题，体验会更好。为此，需要采用更完善的 Giscus 嵌入方式。
 
-Firstly, we are going to install the [React component](https://www.npmjs.com/package/@giscus/react) for _Giscus_:
+首先，安装 Giscus 的 [React 组件](https://www.npmjs.com/package/@giscus/react)：
 
 ```bash
 npm i @giscus/react && npx astro add react
 ```
 
-Then we create a new `Comments.tsx` React component in `src/components`:
+然后在 `src/components` 中新建 `Comments.tsx` React 组件：
 
 ```tsx file=src/components/Comments.tsx
 import Giscus, { type Theme } from "@giscus/react";
@@ -162,32 +162,32 @@ export default function Comments({
 }
 ```
 
-This _React_ component not only wraps the native _Giscus_ component, but also introduces additional props, namely `lightTheme` and `darkTheme`. Leveraging two event listeners, the _Giscus_ comments will align with the site's theme, dynamically switching between dark and light themes whenever the site or browser theme is changed.
+这个 React 组件不仅封装了原生 Giscus 组件，还增加了 `lightTheme` 和 `darkTheme` 两个 props。借助两个事件监听器，当网站主题或浏览器主题发生变化时，Giscus 评论区也会动态切换深浅色模式。
 
-We also need to define the `GISCUS` config, for which the optimal location is in `constants.ts`:
+还需要定义 `GISCUS` 配置，最合适的位置是 `constants.ts`：
 
 ```ts file=src/constants.ts
 import type { GiscusProps } from "@giscus/react";
 
-...
+// ...
 
 export const GISCUS: GiscusProps = {
-  repo: "[ENTER REPO HERE]",
-  repoId: "[ENTER REPO ID HERE]",
-  category: "[ENTER CATEGORY NAME HERE]",
-  categoryId: "[ENTER CATEGORY ID HERE]",
+  repo: "[在此填写仓库]",
+  repoId: "[在此填写仓库 ID]",
+  category: "[在此填写分类名称]",
+  categoryId: "[在此填写分类 ID]",
   mapping: "pathname",
   reactionsEnabled: "0",
   emitMetadata: "0",
   inputPosition: "bottom",
-  lang: "en",
+  lang: "zh-CN",
   loading: "lazy",
 };
 ```
 
-Note that specifying a `theme` here will override the `lightTheme` and `darkTheme` props, resulting in a static theme setting, similar to the previous approach of embedding _Giscus_ with the `<script>` tag.
+注意，如果在这里指定 `theme`，它会覆盖 `lightTheme` 和 `darkTheme` props，最终得到静态主题，效果与此前直接嵌入 Giscus `<script>` 标签相同。
 
-To complete the process, add the new Comments component to `PostDetails.astro` (replacing the `script` tag from the previous step).
+最后，把新的 Comments 组件添加到 `PostDetails.astro`，替换上一步中的 Script 标签。
 
 ```jsx file=src/layouts/PostDetails.astro
 // [!code ++:1]
@@ -203,4 +203,4 @@ import Comments from "@/components/Comments";
 <Footer />
 ```
 
-And that's it!
+至此，全部完成！

@@ -6,28 +6,28 @@ featured: false
 ogImage: ../../../assets/images/AstroPaper-v5.png
 tags:
   - release
-description: "AstroPaper v5: keep the clean look, updates under the hood."
+description: "AstroPaper v5：外观依旧简洁，内部全面升级。"
 ---
 
-At last, the long-awaited AstroPaper v5 is finally here. AstroPaper v5 keeps the same minimal & clean look, but comes with significant updates under the hood.
+期待已久的 AstroPaper v5 终于发布了。它保留了原有的极简、清爽外观，同时在内部实现上带来了大量重要更新。
 
 ![AstroPaper v5](@/assets/images/AstroPaper-v5.png)
 
-## Table of contents
+## 目录
 
-## Major Changes
+## 主要变更
 
-### Upgrade to Astro v5 [#455](https://github.com/satnaing/astro-paper/pull/455)
+### 升级到 Astro v5 [#455](https://github.com/satnaing/astro-paper/pull/455)
 
-AstroPaper now comes with Astro v5, bringing all the new features and improvements that come with it.
+AstroPaper 现已升级到 Astro v5，可使用该版本带来的全部新功能和改进。
 
 ### Tailwind v4
 
-AstroPaper has been upgraded to Tailwind v4, which includes many style changes under the hood. The `tailwind.config.js` file has been removed, and now all the configuration is located within the `src/styles/global.css` file. Typography-related styles have been extracted and moved to `src/styles/typography.css`.
+AstroPaper 已升级到 Tailwind v4，因此底层样式发生了许多变化。`tailwind.config.js` 文件已被移除，所有配置现在都位于 `src/styles/global.css` 中。与排版相关的样式则被提取到 `src/styles/typography.css`。
 
-Due to the new behavior in TailwindCSS v4, styles inside `<style>` blocks within components have been removed and replaced with inline Tailwind classes.
+由于 TailwindCSS v4 的新行为，组件 `<style>` 块中的样式已被移除，改用内联 Tailwind 类。
 
-Additionally, the color palette across the UI has been updated. The new palette now consists of only five colors:
+此外，整个界面的调色板也已更新。新调色板现在只包含五种颜色：
 
 ```css
 :root,
@@ -48,17 +48,17 @@ html[data-theme="dark"] {
 }
 ```
 
-### Remove React + Fuse.js in favor of Pagefind search
+### 移除 React 和 Fuse.js，改用 Pagefind 搜索
 
-In previous versions, React.js and Fuse.js were used for search functionality and OG image generation. In AstroPaper v5, React.js has been removed and replaced with [Pagefind](https://pagefind.app/), a static site search tool.
+此前版本使用 React.js 和 Fuse.js 实现搜索与 OG 图片生成功能。在 AstroPaper v5 中，React.js 已被移除，搜索功能改用静态网站搜索工具 [Pagefind](https://pagefind.app/)。
 
-The search experience is almost identical to previous versions, but now all contents, not just titles and descriptions, are indexed and searchable, thanks to Pagefind.
+搜索体验与旧版本几乎相同，但借助 Pagefind，现在不只是标题和描述，文章的全部内容都可以建立索引并参与搜索。
 
-The idea of using Pagefind in dev mode was inspired by [this blog post](https://chrispennington.blog/blog/pagefind-static-search-for-astro-sites/).
+在开发模式中使用 Pagefind 的思路来自[这篇博客文章](https://chrispennington.blog/blog/pagefind-static-search-for-astro-sites/)。
 
-### Updated import alias
+### 更新导入别名
 
-The import alias has been updated from `@directory` to `@/directory`, which means you now have to import like this:
+导入别名由 `@directory` 改为 `@/directory`，现在需要按以下方式导入：
 
 ```astro
 ---
@@ -67,35 +67,35 @@ import IconHash from "@/assets/icons/IconHash.svg";
 ---
 ```
 
-### Move to `pnpm`
+### 改用 `pnpm`
 
-AstroPaper has switched from `npm` to `pnpm`, which offers faster and more efficient package management.
+AstroPaper 已从 `npm` 切换到 `pnpm`，从而获得更快速、更高效的包管理体验。
 
-### Replace icons/svg with Astro's Svg Component
+### 使用 Astro SVG 组件替代图标／SVG
 
-AstroPaper v5 replaces inline SVGs with Astro’s experimental [SVG Component](https://docs.astro.build/en/reference/experimental-flags/svg/). This update reduces the need for predefined SVG code in the `socialIcons` object, making the codebase cleaner and more maintainable.
+AstroPaper v5 使用 Astro 的实验性 [SVG 组件](https://docs.astro.build/en/reference/experimental-flags/svg/)替代内联 SVG。这减少了在 `socialIcons` 对象中预定义 SVG 代码的需要，使代码库更加简洁、易于维护。
 
-### Separate Constants and Config
+### 分离常量与配置
 
-The project structure has been reorganized. The `src/config.ts` file now only contains the `SITE` object, which holds the main configuration for the project. All constants, such as `LOCALE`, `SOCIALS`, and `SHARE_LINKS`, have been moved to the `src/constants.ts` file.
+项目结构已经重新组织。`src/config.ts` 文件现在只包含保存项目主要配置的 `SITE` 对象。`LOCALE`、`SOCIALS` 和 `SHARE_LINKS` 等常量都已移动到 `src/constants.ts`。
 
-## Other notable changes
+## 其他值得关注的变更
 
-- The blog posts directory has been updated from `src/content/blog/` to `src/data/blog/`.
-- Collection definitions file (`src/content/config.ts`) is now replaced with `src/content.config.ts`.
-- Various dependencies have been upgraded for improved performance and security.
-- Removed `IBM Plex Mono` font and switched to the default system mono font.
-- The `Go back` button logic has been updated. Now, instead of triggering the browser's history API, AstroPaper v5 uses the browser session to temporarily store the back URL. If no back URL exists in the session, it will redirect to the homepage.
-- There are some minor styles and layout changes as well.
+- 博客文章目录从 `src/content/blog/` 改为 `src/data/blog/`；
+- 集合定义文件 `src/content/config.ts` 被 `src/content.config.ts` 取代；
+- 升级了多项依赖，以提升性能和安全性；
+- 移除 `IBM Plex Mono` 字体，改用系统默认等宽字体；
+- 更新了“返回”按钮逻辑。AstroPaper v5 不再调用浏览器 History API，而是使用会话存储临时保存返回 URL。如果会话中没有返回 URL，则跳转到首页；
+- 另外还有一些细微的样式和布局调整。
 
-## Outtro
+## 结语
 
-AstroPaper v5 brings many changes, but the core experience remains the same. Enjoy a smoother, more efficient blogging platform while keeping the clean and minimal design that AstroPaper is known for!
+AstroPaper v5 带来了许多变化，但核心体验依然不变。在保留 AstroPaper 标志性简洁设计的同时，你可以享受更流畅、更高效的博客平台。
 
-Feel free to explore the changes and share your thoughts. As always, thank you for your support!
+欢迎探索这些变化并分享你的看法。和往常一样，感谢你的支持！
 
-If you enjoy this theme, please consider starring the repo. You can also support me via GitHub Sponsors or you can buy me a coffee if you'd like. However, of course, these actions are entirely optional and not required.
+如果你喜欢这个主题，请考虑为仓库点亮 Star。你也可以通过 GitHub Sponsors 或请我喝杯咖啡来支持我。当然，这些都完全出于自愿，并非必要。
 
-Enjoy!
+祝你使用愉快！
 
 [Sat Naing](https://satnaing.dev/)

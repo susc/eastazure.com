@@ -38,8 +38,8 @@ export default defineConfig({
   markdown: {
     processor: unified({
       remarkPlugins: [
-        remarkToc,
-        [remarkCollapse, { test: "Table of contents" }],
+        [remarkToc, { heading: "目录" }],
+        [remarkCollapse, { test: "目录", summary: "目录" }],
       ],
       rehypePlugins: [rehypeCallouts],
     }),
@@ -66,6 +66,15 @@ export default defineConfig({
       fallbacks: ["monospace"],
       weights: [300, 400, 500, 600, 700],
       styles: ["normal", "italic"],
+      formats: ["woff", "ttf"],
+    },
+    {
+      name: "Noto Sans SC",
+      cssVariable: "--font-noto-sans-sc",
+      provider: fontProviders.google(),
+      fallbacks: ["sans-serif"],
+      weights: [400, 700],
+      styles: ["normal"],
       formats: ["woff", "ttf"],
     },
   ],
